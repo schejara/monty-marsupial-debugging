@@ -5,7 +5,7 @@ const pool = require('../modules/pool');
 // GET
 koalaRouter.get('/', (req, res) => {
     const sqlQuery = `
-        SELECT * FROM "koala" 
+        SELECT * FROM "koalas" 
         ORDER BY "name";
     `;
     pool.query(sqlQuery)
@@ -29,7 +29,7 @@ koalaRouter.post('/', (req, res) => {
         req.body.age,
         req.body.color,
         req.body.readyForTransfer,
-        req.body.notes
+        req.body.description
     ];
 
     pool.query(sqlQuery, sqlParams)
@@ -65,13 +65,13 @@ koalaRouter.put('/:koalaId', (req, res) => {
 });
 
 // DELETE
-koalaRouter.delete('/koalas/:id', (req, res) => {
+koalaRouter.delete('/:id', (req, res) => {
     const koalaId = req.params.id;
     const sqlQuery = `
-        DELETE FROM koalas;
+        DELETE FROM koalas WHERE "id" = $1;
     `;
 
-    pool.query(sqlQuery, [koalaId])
+    pool.query(sqlQuery, koalaId)
         .then((response) => {
             console.log(`we deleted the koala with id ${koalaId}`);
             res.send(200);
