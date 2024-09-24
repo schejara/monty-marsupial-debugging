@@ -84,9 +84,9 @@ function createKoala(event) {
   });
 }
 
-function deleteKoala(event) {
+function deleteKoala(koalaId) {
   console.log('in deleteKoala');
-  let koalaId = event.currentTarget.closest('tr').getAttribute('data-id');
+  //let koalaId = event.currentTarget.closest('tr').getAttribute('data-id');
   
   axios({
     method: 'DELETE',
@@ -142,7 +142,7 @@ function renderKoalas(koalas) {
         </td>
         <td>${koala.notes}</td>
         <td>
-          <button onclick="deleteKoala(event)" class="deleteBtn btn btn-danger">
+          <button onClick="deleteKoala(${koala.id})" class="deleteBtn btn btn-danger">
             Delete
           </button>
         </td>
